@@ -1,0 +1,35 @@
+TCP BIC Implementation:
+
+Objective:
+Design TCP WestWood as defined in [7], which follows the guidelines mentioned:
+1. N, represents the congestion state of network using RTT
+2. Beta, parameter to discretize the congestion state
+
+
+Implementation:
+
+Window decrease function of WestWood uses the following function:
+
+if (N < B):
+	ssthres = cwnd*4/5.0
+else:
+	ssthres = cwnd/2.0
+cwnd = ssthres
+
+Window growth function of BIC uses the following function:
+
+if N < B:
+	increase = 1/cwnd
+else:
+	increase = 2/cwnd
+
+window_size = window_size + increase/window_size
+
+To make RTT better, filter is used.
+
+Development:
+WestWood is completely implemented using the code mentioned above which we obatained from [7].
+
+Testing:
+The pilot test is performed between a DELL laptop and a ASUS laptop that are connected by a wireless link (IITD-WIFI)
+A lot of test were ran and some results, which we think give a fair estimate of the protocol are displayed in the results section.
